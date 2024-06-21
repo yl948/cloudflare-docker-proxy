@@ -88,24 +88,24 @@
 <center><h2>自用 Docker Hub 镜像加速</h2></center>
 <h3>为了加速镜像拉取，使用以下命令设置<b>registry mirror</b></h3>
 <pre><code>
-sudo mkdir -p /etc/docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+mkdir -p /etc/docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <pre><code>
-sudo tee /etc/docker/daemon.json &lt;&lt;EOF
+tee /etc/docker/daemon.json &lt;&lt;EOF
 {
-    "registry-mirrors": ["https://yourdomain.com"]
+    "registry-mirrors": ["https://docker.laoex.link"]
 }
 EOF</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <pre><code>
-sudo systemctl daemon-reload</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+systemctl daemon-reload</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <pre><code>
-sudo systemctl restart docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+systemctl restart docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <p><h3>不用设置环境也可以直接使用，用法示例：</h3></p>
 <pre><code>
-docker pull hub.yourdomain.com/library/mysql:5.7</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
+docker pull docker.laoex.link/library/mysql:8.0</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <p>说明：library是一个特殊的命名空间，它代表的是官方镜像。</p>
 </div>
 <div class="footer">
-    &copy; 自建站点，请勿滥用。
+    &copy; <a href="https://appscross.com" target="_blank">老E的博客</a>自建镜像，请勿滥用。
 </div>
 <script>
         function copyCode(button) {
