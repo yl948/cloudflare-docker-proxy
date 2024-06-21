@@ -76,19 +76,20 @@
             color: #ece6ec;
             font-size: 0.875em;
         }
-        .footer a {
-            color: #007aff;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            text-decoration: underline;
-        }
+		a {
+			text-decoration:none;
+			color:#E0FFFF;
+		}
+		a:hover {
+			color: #00BFFF;
+		}
     </style>
 </head>
 <body>
 <div class="container">
-<center><h2><a href="https://appscross.com" target="_blank">自用</a> Docker Hub 镜像加速</h2></center>
-<h3>为了加速镜像拉取，使用以下命令设置<b>registry mirror</b></h3>
+<center><h1 style="font-size:16pt"><a href="https://appscross.com" target="_blank">Appscross</a>-Docker Hub镜像加速</h1>
+<div style="color:white">订阅 <a href="https://appscross.com/go/mychannel">YT频道</a>   |   关注 <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNDY0OTU5Mw==#wechat_redirect" target="_blank">微信公众号</a></div></center>
+<h2 style="font-size:14pt">为了加速镜像拉取，使用以下命令设置<b>registry mirror</b></h2>
 <pre><code>
 mkdir -p /etc/docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <pre><code>
@@ -101,13 +102,13 @@ EOF</code><button class="copy-button" onclick="copyCode(this)">复制代码</but
 systemctl daemon-reload</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <pre><code>
 systemctl restart docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<p><h3>不用设置环境也可以直接使用，用法示例：</h3></p>
+<p><h2 style="font-size:14pt">不用设置环境也可以直接使用，用法示例：</h2></p>
 <pre><code>
 docker pull docker.laoex.link/library/mysql:8.0</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
 <p>说明：library是一个特殊的命名空间，它代表的是官方镜像。</p>
 </div>
 <div class="footer">
-    &copy; <a href="https://appscross.com" target="_blank">老E的博客</a>自建镜像，请勿滥用。
+    &copy; 自建镜像，请勿滥用。
 </div>
 <script>
         function copyCode(button) {
