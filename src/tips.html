@@ -1,129 +1,140 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="keywords" content="docker|dockerhub|vps|老E的博客"> 
-<meta name="description" content="老E的博客-appscross.com-VPS | AIGC | Proxy | TVBox">
-<title>Docker镜像加速-老E的博客</title>
-<style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>镜像使用说明</title>
+    <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #3d3d3d;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 20px;
-            background: #242424;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .github-link {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .github-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 40px auto;
             padding: 20px;
-            background: rgba(20, 19, 19, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        h1, h2, h3 {
-            color: #ece6ec;
-        }
-        p {
-            margin-bottom: 1em;
-            color: #f8f8f2;
-        }
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            position: relative;
-        }
-        pre::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 12px;
-            height: 12px;
-            background: #ff5f56;
-            border-radius: 50%;
-            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f;
-        }
-        code {
-            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            font-size: 0.875em;
-        }
-        .copy-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #007aff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        pre:hover .copy-button {
-            opacity: 1;
+        .content {
+            margin-bottom: 20px;
         }
         .footer {
             text-align: center;
-            margin-top: 20px;
-            color: #ece6ec;
-            font-size: 0.875em;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
         }
-		a {
-			text-decoration:none;
-			color:#E0FFFF;
-		}
-		a:hover {
-			color: #00BFFF;
-		}
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Source Code Pro', monospace;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 15px;
+            }
+            .header {
+                padding: 15px 0;
+            }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="header">
+    <h1>镜像使用说明</h1>
+    <a href="https://github.com/lixd/cloudflare-docker-proxy" target="_blank" class="github-link">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="github-icon">
+    </a>
+</div>
 <div class="container">
-<center><h1 style="font-size:16pt"><a href="https://appscross.com" target="_blank">Appscross</a>-Docker Hub镜像加速</h1>
-<div style="color:white">订阅 <a href="https://appscross.com/go/mychannel">YT频道</a>   |   关注 <a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzkwNDY0OTU5Mw==#wechat_redirect" target="_blank">微信公众号</a></div></center>
-<h2 style="font-size:14pt">为了加速镜像拉取，使用以下命令设置<b>registry mirror</b></h2>
-<pre><code>
-mkdir -p /etc/docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<pre><code>
-tee /etc/docker/daemon.json &lt;&lt;EOF
+    <div class="content">
+        <p>为了加速 Docker 镜像拉取，你可以使用以下命令设置 registry mirror:</p>
+        <pre><code id="registry-config">sudo tee /etc/docker/daemon.json &lt;&lt;EOF
 {
-    "registry-mirrors": ["https://docker.laoex.link"]
+    "registry-mirrors": ["https://{{host}}"]
 }
-EOF</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<pre><code>
-systemctl daemon-reload</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<pre><code>
-systemctl restart docker</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<p><h2 style="font-size:14pt">不用设置环境也可以直接使用，用法示例：</h2></p>
-<pre><code>
-docker pull docker.laoex.link/library/mysql:8.0</code><button class="copy-button" onclick="copyCode(this)">复制代码</button></pre>
-<p>说明：library是一个特殊的命名空间，它代表的是官方镜像。</p>
+EOF
+# 配置完后需要重启 Docker 服务
+sudo systemctl restart docker
+</code></pre>
+        <p>使用该代理从不同的镜像仓库拉取镜像，请参考以下命令：</p>
+        <pre><code id="commands">
+# docker pull nginx:latest
+docker pull docker.{{host}}/library/nginx:latest  # 拉取 Docker 官方镜像
+
+# docker pull quay.io/coreos/etcd:latest
+docker pull quay.{{host}}/coreos/etcd:latest  # 拉取 Quay 镜像
+
+# docker pull gcr.io/google-containers/busybox:latest
+docker pull gcr.{{host}}/google-containers/busybox:latest  # 拉取 GCR 镜像
+
+# docker pull k8s.gcr.io/pause:latest
+docker pull k8s-gcr.{{host}}/pause:latest  # 拉取 k8s.gcr.io 镜像
+
+# docker pull registry.k8s.io/pause:latest
+docker pull k8s.{{host}}/pause:latest  # 拉取 registry.k8s.io 镜像
+
+# docker pull ghcr.io/github/super-linter:latest
+docker pull ghcr.{{host}}/github/super-linter:latest  # 拉取 GitHub 容器镜像
+
+# docker pull docker.cloudsmith.io/public/repo/image:latest
+docker pull cloudsmith.{{host}}/public/repo/image:latest  # 拉取 Cloudsmith 镜像
+</code></pre>
+        <p>为了避免 Worker 用量耗尽，你可以手动 pull 镜像然后 re-tag 之后 push 至本地镜像仓库。</p>
+    </div>
 </div>
 <div class="footer">
-    &copy; 自建镜像，请勿滥用。
+    <p>Powered by Cloudflare Workers</p>
+    <p><a href="https://lixueduan.com" target="_blank">访问博客 探索云原生</a></p>
 </div>
 <script>
-        function copyCode(button) {
-            const code = button.previousSibling;
-            const textArea = document.createElement('textarea');
-            textArea.value = code.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            button.textContent = '已复制';
-            setTimeout(() => {
-                button.textContent = '复制代码';
-            }, 2000);
-        }
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'896b4e01b8b8985b',t:'MTcxODg4MTc0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    document.addEventListener('DOMContentLoaded', function() {
+        const host = window.location.hostname;
+        const mainDomain = host.split('.').slice(-2).join('.');
+        const registryConfigElement = document.getElementById('registry-config');
+        const commandsElement = document.getElementById('commands');
+
+        registryConfigElement.innerHTML = registryConfigElement.innerHTML.replace(/{{host}}/g, host);
+        commandsElement.innerHTML = commandsElement.innerHTML.replace(/{{host}}/g, mainDomain);
+    });
+</script>
+</body>
 </html>
