@@ -13,13 +13,13 @@ TARGET_UPSTREAM = "https://registry-1.docker.io"
 [env.production]
 name = "cloudflare-docker-proxy"
 routes = [
-  { pattern = "docker.laoex.link", custom_domain = true },
-  { pattern = "quey.laoex.link", custom_domain = true },
-  { pattern = "gcr.laoex.link", custom_domain = true },
-  { pattern = "k8s-gcr.laoex.link", custom_domain = true },
-  { pattern = "k8s.laoex.link", custom_domain = true },
-  { pattern = "ghcr.laoex.link", custom_domain = true },
-  { pattern = "cloudsmith.laoex.link", custom_domain = true },
+  { pattern = "docker.svs.lol", custom_domain = true },
+  { pattern = "quey.svs.lol", custom_domain = true },
+  { pattern = "gcr.svs.lol", custom_domain = true },
+  { pattern = "k8s-gcr.svs.lol", custom_domain = true },
+  { pattern = "k8s.svs.lol", custom_domain = true },
+  { pattern = "ghcr.svs.lol", custom_domain = true },
+  { pattern = "cloudsmith.svs.lol", custom_domain = true },
 ]
 
 [env.production.vars]
